@@ -12,7 +12,7 @@ import (
 func main() {
 
 	//se define rabbitMQ server URL
-	amqpServerURL := os.Getenv("AMPQ_SERVER_URL")
+	amqpServerURL := os.Getenv("AMQP_SERVER_URL")
 
 	//crear una conexion rabbitMQ
 	connectRabbitMQ, err := amqp.Dial(amqpServerURL)
@@ -39,13 +39,15 @@ func main() {
 		nil,             //argumentos, sin args por ahora
 	)
 	if err != nil {
+		log.Println("Error en creacion de queue", err)
 		panic(err)
+
 	}
 
 	//web server, instancia fiber
 	app := fiber.New()
 
-	//agregr middleware
+	//agregar middleware
 	app.Use(
 		logger.New(), //logger simple
 	)
@@ -62,10 +64,11 @@ func main() {
 		if err := channelRabbitMQ.Publish(
 			"", //exchange
 			"QueueService1",
-			false,   //obligatorio
-			false,   //inmediate
+			false,   //obligatorio enrutar el mensaje al menos a una queue
+			false,   // enviar el mensaje a un consumidor de forma inmediata
 			message, //mensaje a publicar
 		); err != nil {
+			log.Fatal(err)
 			return err
 		}
 		return nil

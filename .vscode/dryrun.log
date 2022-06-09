@@ -1,0 +1,4 @@
+make: Entering directory `/Users/cristianortiznavia/goProjects/rabbitMQ-go'
+docker-compose up -d --build
+make: Leaving directory `/Users/cristianortiznavia/goProjects/rabbitMQ-go'
+ 

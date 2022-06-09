@@ -50,6 +50,7 @@ func main() {
 		for message := range messages {
 			//mostrar los mensajes recibidos en la consola
 			log.Printf("--> Recibido: %s\n", message.Body)
+			//logica del susbriber luego de recibir los mensajes o eventos
 		}
 	}()
 

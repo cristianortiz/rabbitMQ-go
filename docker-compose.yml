@@ -1,8 +1,7 @@
-version: "3"
+version: "3.9"
 
 services:
-
-  # Crear el servicio con RabbitMQ.
+  # Crear el Message Broker con RabbitMQ.
   message-broker:
     image: rabbitmq:3-management-alpine
     container_name: message-broker
@@ -16,7 +15,7 @@ services:
     networks:
       - dev-network
 
-  # Crear el servicio que produce y/o publica mensajes con Fiber 
+  # Crear el servicio que produce y/o publica mensajes con Fiber
   sender:
     container_name: sender
     ports:
@@ -48,6 +47,5 @@ services:
       - message-broker
 
 networks:
-
   dev-network:
     driver: bridge
